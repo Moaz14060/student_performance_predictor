@@ -44,7 +44,7 @@ with col3:
 # Predict the target value (performance_index) based on the user's inputs
 if predict: 
     value = np.ceil(lr_model.predict([[hours_studied, previous_score, extracurricular_activities, sleep_hours, sample_question_papers_practiced]]))
-    st.write("The predicted performance: ", int(value[0]))
+    st.write("The predicted performance out of 100: ", int(value[0]))
     # Recomendation System
     if (value < 50) & (sleep_hours <= 6):
         st.warning("Try getting more sleep", icon=":material/sleep_score:")
@@ -59,3 +59,4 @@ if home:
 if back:
 
     st.switch_page("pages/model.py")
+
