@@ -17,7 +17,7 @@ sns.set_theme(style="dark", palette=my_colors, font="Verdana")
 st.header("Data Frame")
 st.write("The data of the students' attributes: ")
 # Reading the data
-df=pd.read_csv("F:/students'_performance_predictor/dataset/Student_Performance.csv")
+df=pd.read_csv("dataset/Student_Performance.csv")
 # So we can access the data frame from other pages
 st.session_state['shared_variable'] = df
 # Showing it as a dataframe in streamlit
@@ -126,4 +126,5 @@ with col3:
 if model:
     st.switch_page("pages/model.py")
 if back:
+
     st.switch_page("home.py")
