@@ -7,7 +7,7 @@ Creating a streamlit application that can predict students' performance on an ex
 - ### dataset:
   - The data frame
 - ### .streamlit:
-- To remove the side bar of the app and control other cofigurations.
+  - To remove the side bar of the app and control other cofigurations.
 ## The Application Contains **4 Pages**:
   - *1st Page:* **Home** page, which contains the introduction to the app and explains it's purpose and the dataset.
   - *2nd Page:* **Preprocessing and EDA** page, which contains what we did to improve the data and the exploration of the data using visaulaizations.
