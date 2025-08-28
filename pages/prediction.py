@@ -48,13 +48,14 @@ if predict:
     # Recomendation System
     if (value < 50) & (sleep_hours <= 6):
         st.warning("Try getting more sleep", icon=":material/sleep_score:")
-    if (value < 50) & (sample_question_papers_practiced <= 2):
+    if (value < 50) & (sample_question_papers_practiced <= 5):
         st.warning("Try solving more sample question papers", icon=":material/book:")
-    if (value < 50) & (hours_studied <= 2):
+    if (value < 50) & (hours_studied <= 5):
         st.warning("Try studying for a longer time", icon=":material/schedule:")
 # when the student press the button he/she returns to the home page
 if home:
     st.switch_page("home.py")
 # To go back a page
 if back:
+
     st.switch_page("pages/model.py")
