@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Home", page_icon=":material/home:")
 
 # Main Title
-st.markdown("<h1 style='text-align: center; color: black;'>Mulitple Linear Regression</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>Welcome</h1>", unsafe_allow_html=True)
 # Text explaining the function of the program
 st.write("In this program we are going to preprocess a data about Students' performance, do some exploratory data analysis and train a linear regression model on it.")
 st.write("Also, we are going to help the user\student to predict the performance based on attributes he\she inputs into the program.")
@@ -27,4 +27,5 @@ with col3:
     prep_eda = st.button("Preprocessing and EDA", type="primary")
 # Once the button pressed move to the next page
 if prep_eda:
+
     st.switch_page("pages/preprocess_eda.py")
