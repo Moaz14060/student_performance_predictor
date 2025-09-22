@@ -71,8 +71,8 @@ def train(df):
     # Subtitle
     st.header("Parameters")
     # Showing the parameters
-    st.write(f"**Intercept (Theta0):** {load_model.intercept_}")
-    st.write(f"**Coefficients (Theta1, Theta2, etc....):** {load_model.coef_}")
+    st.write("**Intercept (Theta0):**, load_model.intercept_")
+    st.write("**Coefficients (Theta1, Theta2, etc....):** ,load_model.coef_")
     st.divider()
 
     # Subtitle
@@ -105,4 +105,5 @@ if back:
     st.switch_page("pages/preprocess_eda.py")
 # Once the button pressed move to the home page  
 if home:
+
     st.switch_page("home.py")
