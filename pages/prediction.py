@@ -57,6 +57,4 @@ if home:
     st.switch_page("home.py")
 # To go back a page
 if back:
-
     st.switch_page("pages/model.py")
-

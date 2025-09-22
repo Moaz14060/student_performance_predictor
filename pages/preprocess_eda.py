@@ -17,68 +17,75 @@ sns.set_theme(style="dark", palette=my_colors, font="Verdana")
 st.header("Data Frame")
 st.write("The data of the students' attributes: ")
 # Reading the data
-df=pd.read_csv("dataset/Student_Performance.csv")
-# So we can access the data frame from other pages
-st.session_state['shared_variable'] = df
+df=pd.read_csv("F:/student_performance_predictor/dataset/Student_Performance.csv")
+
 # Showing it as a dataframe in streamlit
 st.dataframe(df)
 st.divider()
 
 # Subtitle 
 st.header("Checking for Null Values")
-from utils import check_na
-st.dataframe(check_na(df))
-st.divider()
 
-# To change the names of the columns
-col_map={"Hours Studied": "hours_studied", "Previous Scores": "previous_scores",
-         "Extracurricular Activities": "extracurricular_activities", "Sleep Hours": "sleep_hours",
-         "Sample Question Papers Practiced": "sample_question_papers_practiced",
-         "Performance Index": "performance_index"}
-df.rename(col_map, inplace=True, axis=1)
+@st.cache_data
+def preprocess_eda(df: pd.DataFrame):
+    from utils import check_na
+    st.dataframe(check_na(df))
+    st.divider()
 
-st.header("Renaming Columns")
-# To show what did we change in the columns
-st.write("For easier Processing:")
-col_names=pd.DataFrame({"From": ["Hours Studied", "Previous Scores", "Extracurricular Activities", "Sleep Hours", 
-                                 "Sample Question Papers Practiced", "Performance Index"]
-                       ,"To": list(df.columns)})
-st.dataframe(col_names)
-st.divider()
+    # To change the names of the columns
+    col_map={"Hours Studied": "hours_studied", "Previous Scores": "previous_scores",
+            "Extracurricular Activities": "extracurricular_activities", "Sleep Hours": "sleep_hours",
+            "Sample Question Papers Practiced": "sample_question_papers_practiced",
+            "Performance Index": "performance_index"}
+    df.rename(col_map, inplace=True, axis=1)
 
-# Encoding categroical values
-df.replace({"extracurricular_activities": {"Yes": 1, "No": 0}}, inplace=True)
+    st.header("Renaming Columns")
+    # To show what did we change in the columns
+    st.write("For easier Processing:")
+    col_names=pd.DataFrame({"From": ["Hours Studied", "Previous Scores", "Extracurricular Activities", "Sleep Hours", 
+                                    "Sample Question Papers Practiced", "Performance Index"]
+                        ,"To": list(df.columns)})
+    st.dataframe(col_names)
+    st.divider()
 
-# Checking for duplications
-st.header("Checking for duplications")
-st.write("Duplicated# records before dropping them: ", df.duplicated().sum())
-df.drop_duplicates(inplace=True)
-st.write("Duplicated# records after dropping them: ", df.duplicated().sum())
-st.divider()
+    # Encoding categroical values
+    df.replace({"extracurricular_activities": {"Yes": 1, "No": 0}}, inplace=True)
 
-st.header("Checking for Outliers")
-from utils import boxplot_check
-# Seprating the numerical features from categorical features
-numer_col=numer_col=["hours_studied", "previous_scores", "sleep_hours", "sample_question_papers_practiced", "performance_index"]
-# Checking for outliers
-boxplot_check(df=df, numerical_col=numer_col, color="yellow", figsize=(18, 8))
-st.divider()
+    # Checking for duplications
+    st.header("Checking for duplications")
+    st.write("**Duplicated#** records before dropping them: ", df.duplicated().sum())
+    df.drop_duplicates(inplace=True)
+    st.write("**Duplicated#** records after dropping them: ", df.duplicated().sum())
+    st.divider()
 
-# Visualizing numerical features using histogram
-st.header("Numerical Features' Distribution")
-from utils import numerical_visualization
-numerical_visualization(df=df, numerical_col=numer_col, edgecolor="red")
-st.divider()
+    st.header("Checking for Outliers")
+    from utils import boxplot_check
+    # Seprating the numerical features from categorical features
+    numer_col=numer_col=["hours_studied", "previous_scores", "sleep_hours", "sample_question_papers_practiced", "performance_index"]
+    # Checking for outliers
+    boxplot_check(df=df, numerical_col=numer_col, color="yellow", figsize=(18, 8))
+    st.divider()
 
-# Visualizing categroical features using countplot
-st.header("Categorical Features' Distribution")
-fig=plt.figure()
-sns.countplot(data=df, x="extracurricular_activities", edgecolor="red")
-plt.xticks(labels=["No", "Yes"], ticks=[0, 1])
-plt.title("Distribution Of Extracurricular Activities")
-plt.suptitle("Categorical Features' Distribution")
-st.pyplot(fig)
-st.divider()
+    # Visualizing numerical features using histogram
+    st.header("Numerical Features' Distribution")
+    from utils import numerical_visualization
+    numerical_visualization(df=df, numerical_col=numer_col, edgecolor="red")
+    st.divider()
+
+    # Visualizing categroical features using countplot
+    st.header("Categorical Features' Distribution")
+    fig=plt.figure()
+    sns.countplot(data=df, x="extracurricular_activities", edgecolor="red")
+    plt.xticks(labels=["No", "Yes"], ticks=[0, 1])
+    plt.title("Distribution Of Extracurricular Activities")
+    plt.suptitle("Categorical Features' Distribution")
+    st.pyplot(fig)
+    st.divider()
+    return df
+
+df = preprocess_eda(df)
+# So we can access the data frame from other pages
+st.session_state['shared_variable'] = df
 
 st.header("Trying to Find Relations Between Features and Target")
 # The choices for the select box
@@ -126,5 +133,4 @@ with col3:
 if model:
     st.switch_page("pages/model.py")
 if back:
-
     st.switch_page("home.py")
