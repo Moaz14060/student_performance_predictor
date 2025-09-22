@@ -31,6 +31,14 @@ target=df.drop(columns= ["hours_studied", "previous_scores", "extracurricular_ac
 st.dataframe(target)
 st.divider()
 
+# Selecting all the features except the last one
+x=df.iloc[:, :-1].values
+# Selecting the last feature
+y=df.iloc[:, -1].values
+
+# Splitting the data
+x_train, x_test, y_train, y_test=train_test_split(x, y, random_state=42, test_size=0.25)
+
 @st.cache_data
 def train(df):
     # Get the script directory
@@ -41,14 +49,6 @@ def train(df):
     
     # A file to save the model
     filename = os.path.join(model_dir, "linear_model.sav")
-
-    # Selecting all the features except the last one
-    x=df.iloc[:, :-1].values
-    # Selecting the last feature
-    y=df.iloc[:, -1].values
-
-    # Splitting the data
-    x_train, x_test, y_train, y_test=train_test_split(x, y, random_state=42, test_size=0.25)
 
     if not os.path.exists(filename):
         # Finding the parameters
@@ -112,6 +112,7 @@ if back:
 if home:
 
     st.switch_page("home.py")
+
 
 
 
