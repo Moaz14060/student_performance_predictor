@@ -21,6 +21,7 @@ df = st.session_state['shared_variable']
 st.header("Features:")
 # Showing the "features" without the target column 
 features=df.drop(columns= "performance_index", axis=1)
+st.session_state["shared_variable3"] = features
 st.dataframe(features)
 st.divider()
 
@@ -75,7 +76,7 @@ def train(df):
     st.write("**Intercept (Theta0):**", load_model.intercept_)
     st.write("**Coefficients (Theta1, Theta2, etc....):**", list(load_model.coef_))
     coef_df = pd.DataFrame({
-    "Feature": df.columns,
+    "Feature": df.drop(columns = "")columns,
     "Coefficient": load_model.coef_
       })
     st.dataframe(coef_df, use_container_width=True)
@@ -113,6 +114,7 @@ if back:
 if home:
 
     st.switch_page("home.py")
+
 
 
 
