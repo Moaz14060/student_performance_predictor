@@ -4,6 +4,10 @@ import numpy as np
 # Customizing the page
 st.set_page_config(page_title="Predictions", page_icon=":material/online_prediction:")
 
+# Ensure model key exists
+if "shared_variable2" not in st.session_state:
+    st.session_state["shared_variable2"] = None
+    
 # To make the model visible in this page
 lr_model = st.session_state['shared_variable2']
 
@@ -21,11 +25,7 @@ extracurricular_activities=st.radio("Do you do Extracurricular Activities ?", ["
 # To loop over them in a for loop
 radio_values=["Yes", "No"]
 # To change the string of the radio options to numbers the model can understand
-for option in radio_values:
-    if option == "Yes":
-        extracurricular_activities = 1
-    else: 
-        extracurricular_activities = 0
+extracurricular_activities = 1 if extracurricular_activities == "**Yes**" else 0
 
 # Slider for determining how many hours the user or student sleeps
 sleep_hours = st.slider("How many hours do you sleep on average ?", 4, 12, 7)
@@ -57,4 +57,5 @@ if home:
     st.switch_page("home.py")
 # To go back a page
 if back:
+
     st.switch_page("pages/model.py")
