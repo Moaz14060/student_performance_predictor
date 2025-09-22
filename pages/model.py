@@ -73,6 +73,11 @@ def train(df):
     # Showing the parameters
     st.write("**Intercept (Theta0):**", load_model.intercept_)
     st.write("**Coefficients (Theta1, Theta2, etc....):**", list(load_model.coef_))
+    coef_df = pd.DataFrame({
+    "Feature": features.columns,
+    "Coefficient": load_model.coef_
+      })
+    st.dataframe(coef_df, use_container_width=True)
     st.divider()
 
     # Subtitle
@@ -107,6 +112,7 @@ if back:
 if home:
 
     st.switch_page("home.py")
+
 
 
 
