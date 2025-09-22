@@ -4,6 +4,9 @@ import numpy as np
 # Customizing the page
 st.set_page_config(page_title="Predictions", page_icon=":material/online_prediction:")
 
+if 'shared_variable2' not in st.sesstion_state:
+    st.sesstion_state["shared_variable2"] = None
+
 # To make the model visible in this page
 lr_model = st.session_state['shared_variable2']
 
@@ -54,6 +57,7 @@ if home:
 # To go back a page
 if back:
     st.switch_page("pages/model.py")
+
 
 
 
