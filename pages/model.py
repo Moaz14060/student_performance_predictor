@@ -59,42 +59,40 @@ def train(df):
 
         # load the model
         load_model = pickle.load(open(filename, 'rb'))
-
-        st.session_state['shared_variable2'] = load_model
-
+        return load_model
     else:
         # load the model
         load_model = pickle.load(open(filename, 'rb'))
+        return load_model
 
-        # To use the model in another page
-        st.session_state['shared_variable2'] = load_model
+load_model = train(df)
+# To use the model in another page
+st.session_state["shared_variable2"] = load_model
 
-    # Subtitle
-    st.header("Parameters")
-    # Showing the parameters
-    st.write("**Intercept (Theta0):**", load_model.intercept_)
-    st.write("**Coefficients (Theta1, Theta2, etc....):**")
-    # Print the Theta in a neat format
-    coef_df = pd.DataFrame({
-    "Feature": features.columns,
-    "Coefficient": load_model.coef_
-      })
-    st.dataframe(coef_df)
-    st.divider()
+# Subtitle
+st.header("Parameters")
+# Showing the parameters
+st.write("**Intercept (Theta0):**", load_model.intercept_)
+st.write("**Coefficients (Theta1, Theta2, etc....):**")
+# Print the Theta in a neat format
+coef_df = pd.DataFrame({
+"Feature": features.columns,
+"Coefficient": load_model.coef_
+})
+st.dataframe(coef_df)
+st.divider()
 
-    # Subtitle
-    st.header("Evaluation of model")
-    # Evaluating the training model
-    r2_train = load_model.score(x_train, y_train)
-    st.write("**Accuracy (R^2)** of Training Model:","{:.0%}".format(r2_train))
-
-    # Predicting the test values
-    y_pred=load_model.predict(x_test)
-    # Evaluating the tested model
-    score=r2_score(y_test, y_pred)
-    st.write("**Accuracy (R^2)** of Tested Model:", "{:.0%}".format(score))
-
-train(df)
+# Subtitle
+st.header("Evaluation of model")
+# Evaluating the training model
+r2_train = load_model.score(x_train, y_train)
+st.write("**Accuracy (R^2)** of Training Model:","{:.0%}".format(r2_train))
+    
+# Predicting the test values
+y_pred=load_model.predict(x_test)
+# Evaluating the tested model
+score=r2_score(y_test, y_pred)
+st.write("**Accuracy (R^2)** of Tested Model:", "{:.0%}".format(score))
 
 # To control the buttons' positions    
 col1, col2, col3, col4, col5=st.columns(5)
@@ -114,6 +112,7 @@ if back:
 if home:
 
     st.switch_page("home.py")
+
 
 
 
