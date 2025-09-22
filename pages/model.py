@@ -72,7 +72,7 @@ def train(df):
     st.header("Parameters")
     # Showing the parameters
     st.write("**Intercept (Theta0):**", load_model.intercept_)
-    st.write("**Coefficients (Theta1, Theta2, etc....):**", load_model.coef_")
+    st.write("**Coefficients (Theta1, Theta2, etc....):**", load_model.coef_)
     st.divider()
 
     # Subtitle
@@ -107,4 +107,5 @@ if back:
 if home:
 
     st.switch_page("home.py")
+
 
