@@ -17,7 +17,7 @@ sns.set_theme(style="dark", palette=my_colors, font="Verdana")
 st.header("Data Frame")
 st.write("The data of the students' attributes: ")
 # Reading the data
-df=pd.read_csv("F:/student_performance_predictor/dataset/Student_Performance.csv")
+df=pd.read_csv("student_performance_predictor/dataset/Student_Performance.csv")
 
 # Showing it as a dataframe in streamlit
 st.dataframe(df)
@@ -133,4 +133,5 @@ with col3:
 if model:
     st.switch_page("pages/model.py")
 if back:
+
     st.switch_page("home.py")
