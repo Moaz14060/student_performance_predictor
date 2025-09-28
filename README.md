@@ -1,5 +1,5 @@
 ## Quick Summary of the App:
-Creating a streamlit application that can predict students' performance on an exam based on attributs the user enters with a recommendation system to help the student improve their performance.
+Creating a streamlit application that can predict students' performance on an exam based on attributes the user enters with a recommendation system to help the student improve their performance.
 ## Files:
 - ### Code Files:
   - **requiremetents.txt**: Contains the neccessary liberaries to download and install.
